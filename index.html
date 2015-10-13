@@ -38,7 +38,7 @@
 	<script type='text/javascript'>
 		/****************************** BACKBONE ******************************/
 		var HarvestModel = Backbone.Model.extend({
-			urlRoot: 'http://localhost:9000/api/harvest/',
+			urlRoot: 'http://localhost:9000/api/harvests/',
 
 			defaults: {
 				id: null
@@ -46,7 +46,7 @@
 		});
 
 		var HarvestStore = Backbone.Collection.extend({
-			urlRoot: 'http://localhost:9000/api/harvest',
+			urlRoot: 'http://localhost:9000/api/harvests/',
 
 			url: function() {
 				if (this.get('id')) {
@@ -60,6 +60,19 @@
 				return response.results;
 			},
 
+			AppDispatcher.register( function( payload ) {
+
+			    switch( payload.eventName ) {
+
+			        case 'select-harvest':
+			            // We get to mutate data
+			            break;
+
+			    }
+
+			    return true; // Needed for Flux promise resolution
+
+
 			model: HarvestModel
 		});
 	</script>
@@ -72,11 +85,6 @@
 		// Farmdata App - Main Render Class
 		var Farmdata = React.createClass({
 			displayName: "Farmdata",
-
-			// toggleMenu: function () {
-			//     console.log("hello");
-			//     $("#wrapper").toggleClass("toggled");
-			// },
 
 			render: function() {
 				return (
@@ -158,7 +166,59 @@
 		})
 
 		// Harvest Input Form
-		var HarvestInputForm
+		var HarvestForm = React.createClass({
+			displayName: "HarvestForm",
+
+			render: function() {
+				return (
+					<div>
+						<HarvestDate />
+						<HarvestCrop />
+						<HarvestTable />
+					</div>
+				)
+			}
+		})
+
+		// Harvest Date Picker
+		var HarvestDate = React.createClass({
+			displayName: "HarvestDate",
+
+			render: function() {
+				return (
+				)
+			}
+		})
+
+		// Select Crop Dropdown
+		var HarvestCrop = React.createClass({
+			displayName: "HarvestCrop",
+
+			render: function() {
+				return (
+				)
+			}
+		})
+
+		// Harvest Table
+		var HarvestTable = React.createClass({
+			displayName: "HarvestTable",
+
+			render: function() {
+				return (
+				)
+			}
+		})
+
+		// Harvest Field Row in Table
+		var HarvestRow = React.createClass({
+			displayName: "HarvestRow",
+
+			render: function() {
+				return (
+				)
+			}
+		})
 
 		// Render everything
 		React.render(

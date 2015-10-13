@@ -1,0 +1,170 @@
+<!-- 
+	Maurice Royce
+	Timoteo Kang
+	9/29/2015
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
+	<title>Farmdata</title>
+	<meta name='description' content='Food journal web application spike project' />
+
+	<!-- STYLESHEETS -->
+	<link rel='stylesheet' href='node_modules/bootstrap/dist/css/bootstrap.min.css'/>
+	<link rel='stylesheet' href='node_modules/bootstrap/dist/css/bootstrap-theme.min.css'/>
+	<link rel='stylesheet' href='src/styles/main.css' />
+</head>
+
+<body>
+	<!-- Food Journal requires JavaScript -->
+	<noscript>Farmdata requires JavaScript</noscript>
+
+	<!-- MAIN CONTENT -->
+	<div id="content"></div>
+
+	<!-- JAVASCRIPTS -->
+	<script src='node_modules/jquery/dist/jquery.min.js'></script>
+	<script src='node_modules/underscore/underscore-min.js'></script>
+	<script src='node_modules/backbone/backbone-min.js'></script>
+	<script src='node_modules/react/dist/react.min.js'></script>
+	<script src='node_modules/react/dist/JSXTransformer.js'></script>
+	<script src='node_modules/react-bootstrap/dist/react-bootstrap.min.js'></script>
+	<script src='node_modules/react.backbone/react.backbone.js'></script>
+	<script src='node_modules/flux/dist/Flux.min.js'></script>
+	<script src='node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+	<script type='text/javascript'>
+		/****************************** BACKBONE ******************************/
+		var HarvestModel = Backbone.Model.extend({
+			urlRoot: 'http://localhost:9000/api/harvest/',
+
+			defaults: {
+				id: null
+			}
+		});
+
+		var HarvestStore = Backbone.Collection.extend({
+			urlRoot: 'http://localhost:9000/api/harvest',
+
+			url: function() {
+				if (this.get('id')) {
+					return this.urlRoot + this.id + '/';
+				} else {
+					return this.urlRoot;
+				}
+			},
+
+			parse: function(response) {
+				return response.results;
+			},
+
+			model: HarvestModel
+		});
+	</script>
+
+	<script type="text/jsx">
+		/****************************** REACT ******************************/
+
+		var AppDispatcher = new Dispatcher();  
+
+		// Farmdata App - Main Render Class
+		var Farmdata = React.createClass({
+			displayName: "Farmdata",
+
+			// toggleMenu: function () {
+			//     console.log("hello");
+			//     $("#wrapper").toggleClass("toggled");
+			// },
+
+			render: function() {
+				return (
+					<div id="wrapper">
+						<NavBar />
+
+				        <div id="page-content-wrapper">
+				        	<Header />
+				        </div>
+
+					</div>
+				)
+			}
+		})
+
+		// Header - Welcome Page
+		var Header = React.createClass({
+			displayName: "Header",
+
+			render: function() {
+				return (
+		            <div className="container-fluid">
+		                <div className="row">
+		                    <div className="col-lg-12">
+		                        <h1>Farmdata</h1>
+		                        <p>FARMDATA is a web-based database system entering and reporting crop production records, including seeding, transplanting, harvest, cover crop, compost, fertilization, irrigation, pest scouting, spray activities, packing and distribution records and customer invoicing. The FARMDATA portal, accessible by both smartphone and desktop computer, uses forms that minimize incorrect records saving farmer time by making calculations and  important data such as field sizes, spray and seeding rates</p>
+		                    </div>
+		                </div>
+		            </div>
+				)
+			}
+		})
+
+		// Navigation Bar
+		var NavBar = React.createClass({
+			displayName: "NavBar",
+
+			selectHarvest: function(evt) {
+			    AppDispatcher.dispatch({
+			        eventName: 'select-harvest'
+			    });
+			}
+
+			render: function() {
+
+				return (
+			        <div id="sidebar-wrapper">
+			            <ul className="sidebar-nav">
+			                <li className="sidebar-brand">
+			                    <a href="#">
+			                        Farmdata
+			                    </a>
+			                </li>
+			                <li>
+			                    <a href="#">Harvest</a>
+			                </li>
+			                <li>
+			                    <a href="#">Seed</a>
+			                </li>
+			                <li>
+			                    <a href="#">Soil</a>
+			                </li>
+			                <li>
+			                    <a href="#">Comments</a>
+			                </li>
+			                <li>
+			                    <a href="#">Labor</a>
+			                </li>
+			                <li>
+			                    <a href="#">Admin</a>
+			                </li>
+			                <li>
+			                    <a href="#">Logout</a>
+			                </li>
+			            </ul>
+			        </div>
+				)
+			}
+		})
+
+		// Harvest Input Form
+		var HarvestInputForm
+
+		// Render everything
+		React.render(
+			<Farmdata />,
+			document.getElementById('content')
+		);
+	</script>
+</body>
+</html>

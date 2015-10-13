@@ -1,0 +1,24 @@
+{
+  "name": "foodjournal_fe",
+  "version": "1.0.0",
+  "description": "Food Journal Application",
+  "main": "main.js",
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "bootstrap": "^3.3.5",
+    "flux": "^2.1.1",
+    "jquery": "^2.1.4",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.25.2",
+    "react.backbone": "^0.6.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "webpack": "^1.12.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

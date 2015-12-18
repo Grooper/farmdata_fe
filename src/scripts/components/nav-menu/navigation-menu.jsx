@@ -1,5 +1,5 @@
 var React = require('react');
-var NavigationMenuTab = require('navigation-menu-tab.jsx');
+var NavigationMenuTab = require('./navigation-menu-tab.jsx');
 
 module.exports = React.createClass ({
 
@@ -7,10 +7,6 @@ module.exports = React.createClass ({
 
 	propTypes: {
 		tabs: React.PropTypes.array
-	},
-
-	getDefaultProps: {
-		
 	},
 
 	render() {

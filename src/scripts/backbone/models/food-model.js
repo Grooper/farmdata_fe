@@ -1,7 +1,20 @@
 var Backbone = require('Backbone');
 
-var Food = Backbone.Model.extend({
-	urlRoot: 'http://localhost:9000/api/foods/',
+module.exports = Backbone.Model.extend({
+	urlRoot: 'http://localhost:9000/api/harvests/',
+
+	defaults: {
+        id: null,
+        date: null,
+        amount: 0,
+        hours: 0,
+        gen: null,
+        comments: "",
+        user: null,
+        field: null,
+        crop: null,
+        unit: null
+	},
 
 	url: function() {
 		if (this.get('id')) {
@@ -10,11 +23,4 @@ var Food = Backbone.Model.extend({
 			return this.urlRoot;
 		}
 	},
-
-	defaults: {
-		id: null,
-		name: null,
-		food_group: null,
-		calsPerServing: 0
-	}
 });

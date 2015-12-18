@@ -1,8 +1,8 @@
 var Backbone = require('backbone');
-var FoodModel = require('../models/food-model.js');
+var HarvestModel = require('../models/food-model.js');
 
-var FoodCollection = Backbone.Collection.extend({
-	urlRoot: 'http://localhost:9000/api/foods/',
+module.exports = Backbone.Collection.extend({
+	urlRoot: 'http://localhost:9000/api/harvests/',
 
 	url: function() {
 		if (this.get('id')) {
@@ -12,7 +12,9 @@ var FoodCollection = Backbone.Collection.extend({
 		}
 	},
 
-	model: FoodModel
-});
+	parse: function(response) {
+		return response.results;
+	},
 
-module.exports = FoodCollection;
+	model: HarvestModel
+});

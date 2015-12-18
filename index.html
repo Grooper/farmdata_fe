@@ -21,9 +21,6 @@
 	<!-- Food Journal requires JavaScript -->
 	<noscript>Farmdata requires JavaScript</noscript>
 
-	<!-- MAIN CONTENT -->
-	<div id="content"></div>
-
 	<!-- JAVASCRIPTS -->
 	<script src='node_modules/jquery/dist/jquery.min.js'></script>
 	<script src='node_modules/underscore/underscore-min.js'></script>
@@ -37,11 +34,23 @@
 
 	<script type='text/javascript'>
 		/****************************** BACKBONE ******************************/
+
+		var AppDispatcher = new Dispatcher(); 
+
 		var HarvestModel = Backbone.Model.extend({
 			urlRoot: 'http://localhost:9000/api/harvests/',
 
 			defaults: {
-				id: null
+	            id: null,
+	            date: null,
+	            amount: 0,
+	            hours: 0,
+	            gen: null,
+	            comments: "",
+	            user: null,
+	            field: null,
+	            crop: null,
+	            unit: null
 			}
 		});
 
@@ -71,16 +80,14 @@
 			    }
 
 			    return true; // Needed for Flux promise resolution
-
+			});
 
 			model: HarvestModel
 		});
 	</script>
 
 	<script type="text/jsx">
-		/****************************** REACT ******************************/
-
-		var AppDispatcher = new Dispatcher();  
+		/****************************** REACT ******************************/ 
 
 		// Farmdata App - Main Render Class
 		var Farmdata = React.createClass({
@@ -106,7 +113,7 @@
 
 			render: function() {
 				return (
-		            <div className="container-fluid">
+		            <div className="container-fluid" id="header">
 		                <div className="row">
 		                    <div className="col-lg-12">
 		                        <h1>Farmdata</h1>
@@ -126,7 +133,7 @@
 			    AppDispatcher.dispatch({
 			        eventName: 'select-harvest'
 			    });
-			}
+			},
 
 			render: function() {
 
@@ -165,65 +172,65 @@
 			}
 		})
 
-		// Harvest Input Form
-		var HarvestForm = React.createClass({
-			displayName: "HarvestForm",
+		// // Harvest Input Form
+		// var HarvestForm = React.createClass({
+		// 	displayName: "HarvestForm",
 
-			render: function() {
-				return (
-					<div>
-						<HarvestDate />
-						<HarvestCrop />
-						<HarvestTable />
-					</div>
-				)
-			}
-		})
+		// 	render: function() {
+		// 		return (
+		// 			<div>
+		// 				<HarvestDate />
+		// 				<HarvestCrop />
+		// 				<HarvestTable />
+		// 			</div>
+		// 		)
+		// 	}
+		// })
 
-		// Harvest Date Picker
-		var HarvestDate = React.createClass({
-			displayName: "HarvestDate",
+		// // Harvest Date Picker
+		// var HarvestDate = React.createClass({
+		// 	displayName: "HarvestDate",
 
-			render: function() {
-				return (
-				)
-			}
-		})
+		// 	render: function() {
+		// 		return (
+		// 		)
+		// 	}
+		// })
 
-		// Select Crop Dropdown
-		var HarvestCrop = React.createClass({
-			displayName: "HarvestCrop",
+		// // Select Crop Dropdown
+		// var HarvestCrop = React.createClass({
+		// 	displayName: "HarvestCrop",
 
-			render: function() {
-				return (
-				)
-			}
-		})
+		// 	render: function() {
+		// 		return (
+		// 		)
+		// 	}
+		// })
 
-		// Harvest Table
-		var HarvestTable = React.createClass({
-			displayName: "HarvestTable",
+		// // Harvest Table
+		// var HarvestTable = React.createClass({
+		// 	displayName: "HarvestTable",
 
-			render: function() {
-				return (
-				)
-			}
-		})
+		// 	render: function() {
+		// 		return (
+		// 		)
+		// 	}
+		// })
 
-		// Harvest Field Row in Table
-		var HarvestRow = React.createClass({
-			displayName: "HarvestRow",
+		// // Harvest Field Row in Table
+		// var HarvestRow = React.createClass({
+		// 	displayName: "HarvestRow",
 
-			render: function() {
-				return (
-				)
-			}
-		})
+		// 	render: function() {
+		// 		return (
+		// 		)
+		// 	}
+		// })
 
 		// Render everything
 		React.render(
 			<Farmdata />,
-			document.getElementById('content')
+			document.body
 		);
 	</script>
 </body>

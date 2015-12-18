@@ -1,13 +1,22 @@
 html {
 	height: 100%;
 	color: #fff;
-	background-color: black;
+	background-color: #000;
 	font-size: 16px;
 	font-family: "Whitney SSm A", "Whitney SSm B", "Whitney A", "Whitney B", sans-serif;
 }
 
 body {
 	height: 100%;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ), url(../images/farmdata-photo.png) no-repeat;
+}
+
+#header {
+    color: white;
+    width: 50%;
 }
 
 .title {
@@ -15,14 +24,13 @@ body {
 	color: #fff;
 	margin: 0px;
 	padding: 0px;
-	text-align: center;
 	position: relative;
 }
 
 .title-primary {
 	font-size: 4em;
 	margin: 0px;
-	color: black;
+	color: white;
 }
 
 .title-secondary {
@@ -32,8 +40,6 @@ body {
 }
 
 #content {
-	margin-left: auto;
-	margin-right: auto;
 	position: relative;
 	border-radius: 20px 20px 20px 20px;
 	-moz-border-radius: 20px 20px 20px 20px;

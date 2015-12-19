@@ -1,9 +1,11 @@
 var Backbone = require('Backbone');
 
+var Config = require('../../config.js');
+
 
 var BaseModel = Backbone.Model.extend({
 
-    baseUrl: 'http://localhost:9000/api/',
+    baseUrl: Config.urls.API_URL,
 
 	url: function() {
 		if (this.get('id')) {

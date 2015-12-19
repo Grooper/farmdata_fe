@@ -1,10 +1,10 @@
 var React = require('react');
 
-var HarvestModel = require('models/harvest-model.js');
+var DirectSeedingModel = require('models/direct-seeding-model.js');
 
 var CropCollection = require('collections/crop-collection.js');
 var FieldCollection = require('collections/field-collection.js');
-var UnitCollection = require('collections/unit-collection.js');
+var SeedInventoryCollection = require('collections/seed-inventory-collection.js');
 
 var BaseForm = require('components/form-elements/base-form.jsx');
 var DateInput = require('components/form-elements/date-input.jsx');
@@ -15,16 +15,16 @@ var Button = require('components/form-elements/button.jsx');
 
 module.exports = React.createClass ({
 
-	displayName: 'HarvestInputForm',
+	displayName: 'DirectSeedingInput',
 
 	getInitialState() {
 		crops: null,
 		fields: null,
-		units: null
+		seedCodes: null
 	},
 
 	componentDidMount() {
-		var cropCollection = new cropCollection();
+		var cropCollection = new CropCollection();
 		cropCollection.fetch({
 			success: function(response) {
 				this.setState({crops: response.toJSON()});
@@ -38,25 +38,28 @@ module.exports = React.createClass ({
 			}
 		});
 
-		var UnitCollection = new UnitCollection();
-		UnitCollection.fetch({
+		var seedInventoryCollection = new SeedInventoryCollection();
+		SeedInventoryCollection.fetch({
 			success: function(response) {
-				this.setState({units: response.toJSON()});
+				this.setState({seedCodes: response.toJSON()});
 			}
 		});
 	},
 
 	submit(e) {
 		e.preventDefault();
-		var month = React.findDOMNode(this.refs.harvestmonth).value;
-		var day = React.findDOMNode(this.refs.harvestday).value;
-		var year = React.findDOMNode(this.refs.harvestyear).value;
+		var month = React.findDOMNode(this.refs.seedingmonth).value;
+		var day = React.findDOMNode(this.refs.seedingday).value;
+		var year = React.findDOMNode(this.refs.seedingyear).value;
 		var dateVal = year + '-' + month + '-' + day;
 
-		var cropVal = React.findDOMNode(this.refs.crop).value;
 		var fieldVal = React.findDOMNode(this.refs.field).value;
-		var yieldVal = React.findDOMNode(this.refs.yield).value;
-		var unitVal = React.findDOMNode(this.refs.unit).value;
+		var cropVal = React.findDOMNode(this.refs.crop).value;
+
+		var seedcodeVal = React.findDOMNode(this.refs.seedcode).value;
+		var bedftVal = React.findDOMNode(this.refs.bedft).value;
+
+		var rowsperbedVal = React.findDOMNode(this.refs.rowsperbed).value;
 		var succVal = React.findDOMNode(this.refs.succ).value;
 		var workersVal = React.findDOMNode(this.refs.workers).value;
 		var minutesVal = React.findDOMNode(this.refs.minutes).value;
@@ -65,20 +68,21 @@ module.exports = React.createClass ({
 
 		var data = {
 			date: dateVal,
-			amount: yieldVal,
-			hours: hoursVal,
-			gen: succVal,
-			comments: commentsVal,
 			field: fieldVal,
 			crop: cropVal,
-			unit: unitVal
+			bedft: bedftVal,
+			rows_per_bed: rowsperbedVal,
+			gen: succVal,
+			hours: hoursVal,
+			comments: commentsVal
 		}
 
-		var harvest = new HarvestModel(data);
-		harvest.save();
+		var directSeeding = new DirectSeedingModel(data);
+		directSeeding.save();
 
+		this.setState({crops: null});
 		this.setState({fields: null});
-		this.setState({units: null});
+		this.setState({seedCodes: null});
 
 		return;
 	},
@@ -88,16 +92,21 @@ module.exports = React.createClass ({
 	},
 
 	render() {
+		var rowsPerBed = [1, 2, 3, 4, 5, 7];
+		var succession = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+		
 		return (
-			<BaseForm title='Harvest Input Form'>
-				<DateInput label='Date of Harvest' refName='harvest' />
+			<BaseForm title='Direct Seeding Input Form'>
+				<DateInput label='Date of Seeding' refName='seeding' />
+				<SelectInput label='Name of Field' refName='field' options={this.state.fields} />
 				<SelectInput label='Crop' refName='crop' options={this.state.crops} />
 
-				<SelectInput label='Name of Field' refName='field' options={this.state.fields} />
-				<TextInput label='Yield' refName='yield' />
-				<SelectInput label='Unit' refName='unit' options={this.state.units} />
-				<SelectInput label='Succ #' refName='succ' options=null />
-				<TextInput label='Workers' refName='workers' />
+				<SelectInput label='Seed Code' refName='seedcode' options={this.state.seedCodes} />
+				<TextInput label='Bed Feet Seeded' refName='bedft' />
+
+				<SelectInput label='Rows Per Bed' refName='rowsperbed' options={rowsPerBed} />
+				<SelectInput label='Succ #' refName='succ' options={succession} />
+				<TextInput label='Number of workers' refName='workers' />
 				<TextInput label='Minutes' refName='minutes' />
 
 				<TextareaInput label='Comments' refName='comments' />

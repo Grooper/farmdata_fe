@@ -1,4 +1,4 @@
-var BaseModel = require('./base-model.js');
+var BaseModel = require('models/base-model.js');
 
 
 class HarvestModel extends BaseModel {
@@ -11,7 +11,7 @@ class HarvestModel extends BaseModel {
         amount: 0,
         hours: 0,
         gen: null,
-        comments: '',
+        comments: null,
         user: null,
         field: null,
         crop: null,

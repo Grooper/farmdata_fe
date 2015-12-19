@@ -57,7 +57,7 @@ class ConfigurationModel extends BaseModel {
         num_add_sales: true,
         num_edit_sales: true,
         farm: null
-	}
+    }
 }
 
 module.exports = ConfigurationModel;

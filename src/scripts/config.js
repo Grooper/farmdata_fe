@@ -14,7 +14,7 @@ var tokens = function() {
 };
 
 // Export configuration settings
-exports.urls = urls();
-exports.tokens = tokens();
+exports.urls = urls;
+exports.tokens = tokens;
 
 module.exports = exports;

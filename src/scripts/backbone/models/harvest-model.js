@@ -1,7 +1,9 @@
-var Backbone = require('Backbone');
+var BaseModel = require('./base-model.js');
 
-module.exports = Backbone.Model.extend({
-	urlRoot: 'http://localhost:9000/api/harvests/',
+
+class HarvestModel extends BaseModel {
+
+	urlRoot: BaseModel::baseUrl + 'harvests/',
 
 	defaults: {
         id: null,
@@ -9,18 +11,12 @@ module.exports = Backbone.Model.extend({
         amount: 0,
         hours: 0,
         gen: null,
-        comments: "",
+        comments: '',
         user: null,
         field: null,
         crop: null,
         unit: null
-	},
+	}
+};
 
-	url: function() {
-		if (this.get('id')) {
-			return this.urlRoot + this.id + '/';
-		} else {
-			return this.urlRoot;
-		}
-	},
-});
+module.exports = HarvestModel;

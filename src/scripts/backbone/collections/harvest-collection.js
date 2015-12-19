@@ -1,20 +1,12 @@
-var Backbone = require('backbone');
-var HarvestModel = require('../models/food-model.js');
+var BaseCollection = require('collections/base-collection.js');
+var HarvestModel = require('models/harvest-model.js');
 
-module.exports = Backbone.Collection.extend({
-	urlRoot: 'http://localhost:9000/api/harvests/',
 
-	url: function() {
-		if (this.get('id')) {
-			return this.urlRoot + this.id + '/';
-		} else {
-			return this.urlRoot;
-		}
-	},
+class HarvestCollection extends BaseCollection {
 
-	parse: function(response) {
-		return response.results;
-	},
+	urlRoot: BaseCollection::baseUrl + 'harvests/',
 
 	model: HarvestModel
-});
+};
+
+module.exports = HavestCollection;

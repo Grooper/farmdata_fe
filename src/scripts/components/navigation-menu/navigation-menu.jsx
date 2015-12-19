@@ -18,7 +18,7 @@ module.exports = React.createClass ({
 	},
 
 	selectTab(tab) {
-		this.setState({tabs: tab.children});
+		// this.setState({tabs: tab.children});
 	},
 
 	render() {
@@ -69,9 +69,10 @@ module.exports = React.createClass ({
 						style={menuGlyphiconStyle}
 						className='glyphicon glyphicon-menu-hamburger' 
 						onClick={this.props.toggleMenu} />
-					<br />
 				</div>
+				<br />
 				<Breadcrumb />
+				<br />
 				<NavigationMenuTabRow tabs={tabs} level={this.state.currentLevel} selectTab={this.selectTab} />
 			</div>
 		)

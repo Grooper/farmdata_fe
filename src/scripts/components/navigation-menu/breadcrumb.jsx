@@ -12,11 +12,11 @@ module.exports = React.createClass ({
 	},
 
 	render() {
-		var breadcrumbsString = '';
+		var breadcrumbString = '';
 
 		return (
 			<div>
-				I Am A Breadcrumb
+				{breadcrumbString}
 			</div>
 		)
 	}

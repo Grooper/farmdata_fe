@@ -16,7 +16,6 @@ module.exports = React.createClass ({
 
 	toggleMenu() {
 		this.setState({menuActive: !(this.state.menuActive)});
-		console.log(this.state.menuActive);
 	},
 
 	render() {
